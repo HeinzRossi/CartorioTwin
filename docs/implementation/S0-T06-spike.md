@@ -53,5 +53,5 @@ Exercitar um contrato versionado para fonte, página, evidência, ato candidato,
 - `dotnet build CartorioTwin.sln -c Release --no-restore`: aprovado com 0 avisos e 0 erros.
 - `dotnet test CartorioTwin.sln -c Release --no-build`: 17 testes aprovados em 4 projetos.
 - `git diff --check`: aprovado.
-- `build-and-test` e `secret-scan`: aguardando execução no draft PR.
+- Draft PR [#6](https://github.com/HeinzRossi/CartorioTwin/pull/6): `build-and-test` aprovado em 1m17s e `secret-scan` aprovado em 5s.
 - Nenhum merge; S0-T06, S1-T02, Sprint 0, G0 e G1 permanecem pendentes.
