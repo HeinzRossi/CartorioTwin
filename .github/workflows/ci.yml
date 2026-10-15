@@ -31,6 +31,12 @@ jobs:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
 
+      - name: Validate contract fixtures
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File scripts/Validate-ContractFixtures.ps1
+          pwsh -NoProfile -File scripts/Test-ContractFixtureValidator.ps1
+
       - name: Restore
         run: dotnet restore CartorioTwin.sln --locked-mode
 

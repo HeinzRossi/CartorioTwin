@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0-draft",
+  "caseId": "GD-005",
+  "synthetic": true,
+  "description": "CT-001 sintético: fração documentada de 1/2 confrontada com proposta de 1/1.",
+  "source": {
+    "id": "55555555-5555-4555-8555-555555555555",
+    "version": 1,
+    "sha256": "sha256:17f7a8abea8a238340feccf49e7b0436fdd2999e7cf5f838baf7a96bddf92ecd",
+    "nameSanitized": "gd-005-ct001-sintetico.pdf",
+    "mimeType": "application/pdf",
+    "byteLength": 5120
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "R-6 - Pessoa Delta possui fração documentada de 1/2.",
+      "textSha256": "sha256:6ef57e4d7d46d9bcad820bb55d3c4ac9a125d4728a70593cabdf9ff412bbc74a",
+      "strategy": "native_text",
+      "quality": "high"
+    }
+  ],
+  "acts": [
+    {
+      "id": "55555555-5555-4555-8555-555555555501",
+      "order": 1,
+      "identifier": "R-6",
+      "declaredType": "registration",
+      "pages": [1],
+      "fields": [
+        {
+          "path": "holder.name",
+          "valueType": "identity",
+          "suggestedValue": "Pessoa Delta",
+          "state": "confirmed",
+          "evidences": [
+            {
+              "sourceId": "55555555-5555-4555-8555-555555555555",
+              "sourceVersion": 1,
+              "sourceSha256": "sha256:17f7a8abea8a238340feccf49e7b0436fdd2999e7cf5f838baf7a96bddf92ecd",
+              "page": 1,
+              "textSha256": "sha256:6ef57e4d7d46d9bcad820bb55d3c4ac9a125d4728a70593cabdf9ff412bbc74a",
+              "startUtf16": 6,
+              "endUtf16": 18,
+              "excerpt": "Pessoa Delta"
+            }
+          ]
+        },
+        {
+          "path": "right.fraction",
+          "valueType": "fraction",
+          "suggestedValue": { "numerator": 1, "denominator": 2 },
+          "state": "confirmed",
+          "evidences": [
+            {
+              "sourceId": "55555555-5555-4555-8555-555555555555",
+              "sourceVersion": 1,
+              "sourceSha256": "sha256:17f7a8abea8a238340feccf49e7b0436fdd2999e7cf5f838baf7a96bddf92ecd",
+              "page": 1,
+              "textSha256": "sha256:6ef57e4d7d46d9bcad820bb55d3c4ac9a125d4728a70593cabdf9ff412bbc74a",
+              "startUtf16": 48,
+              "endUtf16": 51,
+              "excerpt": "1/2"
+            }
+          ]
+        }
+      ],
+      "relations": [],
+      "issues": []
+    }
+  ],
+  "reviews": [
+    {
+      "id": "55555555-5555-4555-8555-555555555601",
+      "actId": "55555555-5555-4555-8555-555555555501",
+      "fieldPath": "right.fraction",
+      "decision": "confirmed",
+      "finalValue": { "numerator": 1, "denominator": 2 },
+      "justification": null,
+      "reviewerId": "55555555-5555-4555-8555-555555555701"
+    }
+  ],
+  "scenario": {
+    "id": "55555555-5555-4555-8555-555555555801",
+    "transferorId": "55555555-5555-4555-8555-555555555901",
+    "acquirerId": "55555555-5555-4555-8555-555555555902",
+    "documentedFraction": { "numerator": 1, "denominator": 2 },
+    "proposedFraction": { "numerator": 1, "denominator": 1 }
+  },
+  "expected": {
+    "status": "divergent",
+    "projectionAllowed": false,
+    "findings": ["RT-004"]
+  }
+}
