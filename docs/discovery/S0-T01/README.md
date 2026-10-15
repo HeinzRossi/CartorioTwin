@@ -29,6 +29,15 @@ Participantes adicionais usam sequência crescente. Uma pessoa não conta simult
 3. [`03_MATRIZ_CONSOLIDACAO.md`](03_MATRIZ_CONSOLIDACAO.md): síntese comparável sem dados pessoais.
 4. [`04_RELATORIO_DESCOBERTA_TEMPLATE.md`](04_RELATORIO_DESCOBERTA_TEMPLATE.md): relatório final com cinco dores e três fluxos validados.
 
+## Ensaio sintético de desenvolvimento
+
+A pasta [`examples/`](examples/) contém quatro personas e uma consolidação completa para exercitar o processo documental. Todos os arquivos são rotulados **SINTÉTICO — NÃO É EVIDÊNCIA**. Eles não representam entrevistas, autorizações, validações profissionais, práticas por UF ou regras jurídicas.
+
+- [`MATRIZ_CONSOLIDACAO_SINTETICA.md`](examples/MATRIZ_CONSOLIDACAO_SINTETICA.md): agrupamento de cinco dores e três jornadas do ensaio.
+- [`RELATORIO_DESCOBERTA_SINTETICO.md`](examples/RELATORIO_DESCOBERTA_SINTETICO.md): relatório final de teste, separado do aceite oficial.
+
+As contagens da amostra mínima permanecem pendentes. Os templates oficiais continuam vazios até existirem registros reais sanitizados e validados.
+
 ## Procedimento
 
 1. Explicar finalidade, duração, uso das respostas e ausência de decisão jurídica automatizada.
@@ -39,6 +48,8 @@ Participantes adicionais usam sequência crescente. Uma pessoa não conta simult
 6. Enviar ao Git apenas o registro sanitizado; notas brutas ficam fora do repositório, no local autorizado pela organização.
 7. Consolidar respostas somente após atingir a amostra mínima.
 8. Pedir aos participantes validação da síntese referente à sua especialidade antes de marcar um fluxo como validado.
+
+Fixtures sintéticas podem exercitar esses passos, mas ficam em `examples/` e nunca alteram contagens ou checklists oficiais.
 
 ## Regras de segurança e privacidade
 
