@@ -24,7 +24,7 @@ Testar uma API de domínio mínima para vincular uma evidência a fonte, versão
 - `FonteDocumentalId`: identidade forte sobre UUID.
 - `Pagina`: número iniciado em 1.
 - `VersaoFonte`: número positivo.
-- `HashSha256`: valor hexadecimal canônico e cálculo puro sobre bytes ou UTF-8.
+- `HashSha256`: 64 dígitos hexadecimais para cálculo interno, representação canônica `sha256:<64 hex>` e cálculo puro sobre bytes ou UTF-8.
 - `FonteDocumental`: metadados imutáveis mínimos, sem storage ou operação.
 - `TrechoEvidencia`: fonte, versão, hashes, página e intervalo UTF-16.
 

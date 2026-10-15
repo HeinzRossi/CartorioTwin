@@ -14,6 +14,8 @@ public sealed record HashSha256
 
     public string Valor { get; }
 
+    public string ValorCanonico => $"sha256:{Valor}";
+
     public static HashSha256 Criar(string valor)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(valor);
@@ -40,6 +42,6 @@ public sealed record HashSha256
 
     public override string ToString()
     {
-        return Valor;
+        return ValorCanonico;
     }
 }

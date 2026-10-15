@@ -52,6 +52,8 @@ public sealed class EvidenciaDocumentalTests
         Assert.Equal(esperado, HashSha256.Criar(esperado.ToUpperInvariant()).Valor);
         Assert.Equal(esperado, HashSha256.Calcular(Encoding.UTF8.GetBytes("abc")).Valor);
         Assert.Equal(esperado, HashSha256.CalcularUtf8("abc").Valor);
+        Assert.Equal($"sha256:{esperado}", HashSha256.CalcularUtf8("abc").ValorCanonico);
+        Assert.Equal($"sha256:{esperado}", HashSha256.CalcularUtf8("abc").ToString());
     }
 
     [Theory]
