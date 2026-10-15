@@ -1,0 +1,37 @@
+## .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+TestResults/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build and coverage
+[Aa]rtifacts/
+coverage/
+coverage.*
+*.trx
+
+## IDEs
+.idea/
+.vscode/
+*.DotSettings.user
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Local secrets and environment
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+secrets.json
+
+## Packages
+*.nupkg
+*.snupkg
+packages/
+!**/packages/build/
