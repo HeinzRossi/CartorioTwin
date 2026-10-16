@@ -1,10 +1,10 @@
 # Spike S1-T03 — Atos registrais estruturais
 
-**Estado:** Draft técnico empilhado; não integrado; S1-T03 pendente
+**Estado:** Baseline técnica candidata integrada; S1-T03 formalmente pendente
 
 **Data:** 16/10/2026
 
-**Dependências:** draft PR #7 e, transitivamente, draft PRs #5 e #6
+**Dependências:** baselines técnicas dos PRs #5–#7 integradas; validações externas continuam pendentes
 
 ## Objetivo
 
@@ -61,6 +61,7 @@ O schema atual também não possui datas documentais nem partes estruturadas. Es
 - `dotnet format ... whitespace --verify-no-changes`: aprovado para os arquivos C# do spike.
 - `dotnet list ... reference` e `dotnet list ... package`: Domain sem referência de projeto ou pacote.
 - `git diff --check`: aprovado.
-- CI e URL serão registrados no draft PR.
+- PR [#8](https://github.com/HeinzRossi/CartorioTwin/pull/8): versão reconstruída sobre `main` aprovada por `build-and-test` em 1m27s e `secret-scan` em 7s, execução `38895674710`.
+- Squash `413de36`; CI subsequente da `main` aprovado em 1m5s/9s, execução `38895869199`.
 
 S0-T06, S1-T02, S1-T03, Sprint 0, Sprint 1, G0 e G1 permanecem pendentes.
