@@ -1,6 +1,6 @@
 # Spike S1-T06 — Integridade e serialização versionada
 
-**Estado:** baseline técnica candidata implementada; integração e validação externa pendentes
+**Estado:** baseline técnica candidata integrada; validação externa pendente
 
 **Data:** 16/10/2026
 
@@ -70,5 +70,9 @@ O arquivo é exclusivamente massa sintética de desenvolvimento. Não representa
 - `dotnet list ... reference` e `dotnet list ... package --include-transitive`: Domain sem referência de projeto ou pacote; Contracts sem referência de projeto.
 - Fixture `PKG-001` confirmada como UTF-8 sem BOM.
 - `git diff --check`: aprovado.
+
+- PR [#14](https://github.com/HeinzRossi/CartorioTwin/pull/14): aprovado por `build-and-test` em 1m32s e `secret-scan` em 6s, execução `38947820366`.
+- Squash `1e9b2b4` integrado exclusivamente pelo PR #14.
+- CI subsequente da `main`: `build-and-test` aprovado em 1m28s e `secret-scan` em 7s, execução `38948087650`.
 
 S1-T06, Sprint 1 e G1 permanecem formalmente pendentes das validações externas e das demais dependências do gate.
