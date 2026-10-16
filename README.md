@@ -2,7 +2,7 @@
 
 Fundação técnica do Cartório Twin, plataforma Windows para análise documental assistida e simulação condicional de operações imobiliárias.
 
-> Estado atual: fundação S0-T04 e núcleo de domínio S1-T01 concluídos; baseline técnica candidata de contratos, fixtures, evidências, atos e direitos documentados integrada; revisão humana e promoção controlada preparadas para integração. S0-T01 continua sem entrevistas reais e S0-T06/S1-T02/S1-T03/S1-T04/S1-T05 dependem de validação externa; S1-T05 também depende de S1-T08 para validar autorizações. Nenhum gate G0–G9, sprint, MVP, homologação jurídica ou implantação foi concluído.
+> Estado atual: fundação S0-T04 e núcleo de domínio S1-T01 concluídos; baseline técnica candidata de contratos, fixtures, evidências, atos, direitos documentados, revisão humana e promoção controlada integrada. S0-T01 continua sem entrevistas reais e S0-T06/S1-T02/S1-T03/S1-T04/S1-T05 dependem de validação externa; S1-T05 também depende de S1-T08 para validar autorizações. Nenhum gate G0–G9, sprint, MVP, homologação jurídica ou implantação foi concluído.
 
 ## Requisitos
 
