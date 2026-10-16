@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0-draft",
+  "caseId": "GD-002",
+  "synthetic": true,
+  "description": "OCR sintético de baixa qualidade permanece candidato e aguarda revisão humana.",
+  "source": {
+    "id": "22222222-2222-4222-8222-222222222222",
+    "version": 1,
+    "sha256": "sha256:844cad21d5d51f2b23ca7c427c0b4f45d15ce53ec0705ab0c85571a1a3eba033",
+    "nameSanitized": "gd-002-ocr-sintetico.pdf",
+    "mimeType": "application/pdf",
+    "byteLength": 2048
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "AV-2 - Pessoa Beta, texto parcialmente ilegível.",
+      "textSha256": "sha256:ad8bd0c869d1ecf26c4a96bd6b4597257b0976abd1d10cc0ca25b6d5d934db99",
+      "strategy": "ocr",
+      "quality": "low"
+    }
+  ],
+  "acts": [
+    {
+      "id": "22222222-2222-4222-8222-222222222201",
+      "order": 1,
+      "identifier": "AV-2",
+      "declaredType": "annotation",
+      "pages": [1],
+      "fields": [
+        {
+          "path": "person.name",
+          "valueType": "identity",
+          "suggestedValue": "Pessoa Beta",
+          "state": "under_review",
+          "evidences": [
+            {
+              "sourceId": "22222222-2222-4222-8222-222222222222",
+              "sourceVersion": 1,
+              "sourceSha256": "sha256:844cad21d5d51f2b23ca7c427c0b4f45d15ce53ec0705ab0c85571a1a3eba033",
+              "page": 1,
+              "textSha256": "sha256:ad8bd0c869d1ecf26c4a96bd6b4597257b0976abd1d10cc0ca25b6d5d934db99",
+              "startUtf16": 7,
+              "endUtf16": 18,
+              "excerpt": "Pessoa Beta"
+            }
+          ]
+        }
+      ],
+      "relations": [],
+      "issues": ["ocr_low_quality"]
+    }
+  ],
+  "reviews": [],
+  "scenario": null,
+  "expected": {
+    "status": "awaiting_review",
+    "projectionAllowed": false,
+    "findings": ["OCR-LOW-QUALITY"]
+  }
+}

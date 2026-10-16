@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0-draft",
+  "caseId": "GD-003",
+  "synthetic": true,
+  "description": "Sequência sintética multipágina com referência explícita de AV-4 para R-3.",
+  "source": {
+    "id": "33333333-3333-4333-8333-333333333333",
+    "version": 1,
+    "sha256": "sha256:4b71950bc4e808159f4564b48c0b2a778ac0ceafb0e8c1494fc4f1a283e6dcff",
+    "nameSanitized": "gd-003-multipagina-sintetica.pdf",
+    "mimeType": "application/pdf",
+    "byteLength": 3072
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "R-3 - Pessoa Gama adquiriu a propriedade.",
+      "textSha256": "sha256:4b4b3e47a08f1a9dc90d76900cdd603e6f85026f31374a51f7e5cda3fb835957",
+      "strategy": "native_text",
+      "quality": "high"
+    },
+    {
+      "number": 2,
+      "text": "AV-4 - O ato AV-4 referencia o R-3.",
+      "textSha256": "sha256:c1cfedb5047c9c9fdb7b0cf69465548a8331a2531dc6eca4119bf38a89aaf1d1",
+      "strategy": "native_text",
+      "quality": "high"
+    }
+  ],
+  "acts": [
+    {
+      "id": "33333333-3333-4333-8333-333333333301",
+      "order": 1,
+      "identifier": "R-3",
+      "declaredType": "registration",
+      "pages": [1],
+      "fields": [
+        {
+          "path": "holder.name",
+          "valueType": "identity",
+          "suggestedValue": "Pessoa Gama",
+          "state": "confirmed",
+          "evidences": [
+            {
+              "sourceId": "33333333-3333-4333-8333-333333333333",
+              "sourceVersion": 1,
+              "sourceSha256": "sha256:4b71950bc4e808159f4564b48c0b2a778ac0ceafb0e8c1494fc4f1a283e6dcff",
+              "page": 1,
+              "textSha256": "sha256:4b4b3e47a08f1a9dc90d76900cdd603e6f85026f31374a51f7e5cda3fb835957",
+              "startUtf16": 6,
+              "endUtf16": 17,
+              "excerpt": "Pessoa Gama"
+            }
+          ]
+        }
+      ],
+      "relations": [],
+      "issues": []
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333302",
+      "order": 2,
+      "identifier": "AV-4",
+      "declaredType": "annotation",
+      "pages": [1, 2],
+      "fields": [
+        {
+          "path": "relatedAct.identifier",
+          "valueType": "text",
+          "suggestedValue": "R-3",
+          "state": "confirmed",
+          "evidences": [
+            {
+              "sourceId": "33333333-3333-4333-8333-333333333333",
+              "sourceVersion": 1,
+              "sourceSha256": "sha256:4b71950bc4e808159f4564b48c0b2a778ac0ceafb0e8c1494fc4f1a283e6dcff",
+              "page": 2,
+              "textSha256": "sha256:c1cfedb5047c9c9fdb7b0cf69465548a8331a2531dc6eca4119bf38a89aaf1d1",
+              "startUtf16": 31,
+              "endUtf16": 34,
+              "excerpt": "R-3"
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "targetActId": "33333333-3333-4333-8333-333333333301",
+          "type": "reference"
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "reviews": [
+    {
+      "id": "33333333-3333-4333-8333-333333333401",
+      "actId": "33333333-3333-4333-8333-333333333302",
+      "fieldPath": "relatedAct.identifier",
+      "decision": "confirmed",
+      "finalValue": "R-3",
+      "justification": null,
+      "reviewerId": "33333333-3333-4333-8333-333333333501"
+    }
+  ],
+  "scenario": null,
+  "expected": {
+    "status": "consistent_in_scope",
+    "projectionAllowed": false,
+    "findings": []
+  }
+}

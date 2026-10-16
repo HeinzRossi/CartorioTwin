@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0-draft",
+  "caseId": "GD-004",
+  "synthetic": true,
+  "description": "Ato sintético sem regra técnica suportada permanece inconclusivo e sem projeção.",
+  "source": {
+    "id": "44444444-4444-4444-8444-444444444444",
+    "version": 1,
+    "sha256": "sha256:5c041d138e39e08363b11db0b39a2e2c58de08508bc2010fb2cf61c232f7c1a0",
+    "nameSanitized": "gd-004-nao-suportado.pdf",
+    "mimeType": "application/pdf",
+    "byteLength": 4096
+  },
+  "pages": [
+    {
+      "number": 1,
+      "text": "AV-5 - Conteúdo sintético sem regra técnica suportada.",
+      "textSha256": "sha256:9a0950f0bd20f2b1a6c71b783ffa2007c58a00ec78c49a1a1be7d8521af3ba24",
+      "strategy": "hybrid",
+      "quality": "unknown"
+    }
+  ],
+  "acts": [
+    {
+      "id": "44444444-4444-4444-8444-444444444401",
+      "order": 1,
+      "identifier": "AV-5",
+      "declaredType": "unsupported",
+      "pages": [1],
+      "fields": [
+        {
+          "path": "effect",
+          "valueType": "effect",
+          "suggestedValue": null,
+          "state": "not_found",
+          "evidences": []
+        }
+      ],
+      "relations": [],
+      "issues": ["unsupported_act"]
+    }
+  ],
+  "reviews": [
+    {
+      "id": "44444444-4444-4444-8444-444444444501",
+      "actId": "44444444-4444-4444-8444-444444444401",
+      "fieldPath": "effect",
+      "decision": "not_found",
+      "finalValue": null,
+      "justification": "Efeito não localizado por regra técnica disponível no ensaio.",
+      "reviewerId": "44444444-4444-4444-8444-444444444601"
+    }
+  ],
+  "scenario": null,
+  "expected": {
+    "status": "inconclusive",
+    "projectionAllowed": false,
+    "findings": ["UNSUPPORTED-ACT"]
+  }
+}
