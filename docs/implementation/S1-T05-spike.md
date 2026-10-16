@@ -1,6 +1,6 @@
 # Spike S1-T05 — Revisão humana e promoção controlada
 
-**Estado:** baseline técnica candidata implementada; integração e validação externa pendentes
+**Estado:** baseline técnica candidata integrada; validação externa e S1-T08 pendentes
 
 **Data:** 16/10/2026
 
@@ -70,5 +70,9 @@ Os testes leem diretamente GD-001…GD-005 com `JsonDocument`, sem DTO público 
 - Formatação: arquivos C# da S1-T05 formatados isoladamente; dívida legada fora do escopo não foi reescrita.
 - `dotnet list ... reference` e `dotnet list ... package --include-transitive`: Domain sem referência de projeto ou pacote.
 - `git diff --check`: aprovado.
+
+- PR [#12](https://github.com/HeinzRossi/CartorioTwin/pull/12): aprovado por `build-and-test` em 1m08s e `secret-scan` em 10s, execução `38934473565`.
+- Squash `31d9dd0` integrado exclusivamente pelo PR #12.
+- CI subsequente da `main`: `build-and-test` aprovado em 1m25s e `secret-scan` em 8s, execução `38934680240`.
 
 S1-T05, Sprint 1 e G1 permanecem formalmente pendentes de S1-T08 e validação externa.
