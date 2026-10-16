@@ -6,6 +6,7 @@ namespace CartorioTwin.Domain.Documentos;
 public sealed record HashSha256
 {
     private const int ComprimentoHexadecimal = 64;
+    private const string PrefixoCanonico = "sha256:";
 
     private HashSha256(string valor)
     {
@@ -28,6 +29,21 @@ public sealed record HashSha256
         return new HashSha256(valor.ToLowerInvariant());
     }
 
+    public static HashSha256 CriarCanonico(string valorCanonico)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(valorCanonico);
+
+        if (valorCanonico.Length != PrefixoCanonico.Length + ComprimentoHexadecimal ||
+            !valorCanonico.StartsWith(PrefixoCanonico, StringComparison.Ordinal) ||
+            !EhHexadecimalCanonico(valorCanonico.AsSpan(PrefixoCanonico.Length)))
+        {
+            throw new FormatException(
+                "O hash SHA-256 canônico deve usar 'sha256:' seguido por 64 dígitos hexadecimais minúsculos.");
+        }
+
+        return new HashSha256(valorCanonico[PrefixoCanonico.Length..]);
+    }
+
     public static HashSha256 Calcular(ReadOnlySpan<byte> conteudo)
     {
         var hash = SHA256.HashData(conteudo);
@@ -43,5 +59,18 @@ public sealed record HashSha256
     public override string ToString()
     {
         return ValorCanonico;
+    }
+
+    private static bool EhHexadecimalCanonico(ReadOnlySpan<char> valor)
+    {
+        foreach (var caractere in valor)
+        {
+            if (caractere is not (>= '0' and <= '9' or >= 'a' and <= 'f'))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

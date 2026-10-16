@@ -21,4 +21,10 @@
     <ProjectReference Include="..\..\src\CartorioTwin.Domain\CartorioTwin.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\contracts\v1\fixtures\*.json"
+          Link="ContractFixtures\%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

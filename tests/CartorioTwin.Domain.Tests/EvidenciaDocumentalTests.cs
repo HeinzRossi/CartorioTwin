@@ -66,6 +66,29 @@ public sealed class EvidenciaDocumentalTests
     }
 
     [Fact]
+    public void HashSha256_CriaDeRepresentacaoCanonicaEstrita()
+    {
+        const string hexadecimal = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad";
+        var hash = HashSha256.CriarCanonico($"sha256:{hexadecimal}");
+
+        Assert.Equal(hexadecimal, hash.Valor);
+        Assert.Equal($"sha256:{hexadecimal}", hash.ValorCanonico);
+        Assert.Equal(hash.ValorCanonico, hash.ToString());
+    }
+
+    [Theory]
+    [InlineData("SHA256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")]
+    [InlineData("sha256:BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD")]
+    [InlineData(" sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")]
+    [InlineData("sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015a")]
+    [InlineData("md5:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")]
+    [InlineData("sha256:ga7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")]
+    public void HashSha256_RejeitaRepresentacaoNaoCanonica(string valor)
+    {
+        Assert.Throws<FormatException>(() => HashSha256.CriarCanonico(valor));
+    }
+
+    [Fact]
     public void FonteDocumental_RejeitaMetadadosInvalidos()
     {
         var id = FonteDocumentalId.Criar(FonteGuid);
