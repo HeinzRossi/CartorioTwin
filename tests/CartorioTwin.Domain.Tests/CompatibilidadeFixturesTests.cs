@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CartorioTwin.Domain.Documentos;
+using CartorioTwin.Domain.Identidades;
 
 namespace CartorioTwin.Domain.Tests;
 
@@ -84,5 +85,69 @@ public sealed class CompatibilidadeFixturesTests
 
         Assert.Equal(5, casosLidos.Count);
         Assert.True(evidenciasLidas > 0);
+    }
+
+    [Fact]
+    public void Gd003MapeiaOrdemPaginasERelacaoEntreAtos()
+    {
+        var caminho = Path.Combine(AppContext.BaseDirectory, "ContractFixtures", "GD-003-multipage-relation.json");
+        using var documento = JsonDocument.Parse(File.ReadAllText(caminho));
+        var raiz = documento.RootElement;
+        var fonteJson = raiz.GetProperty("source");
+        var fonteId = FonteDocumentalId.Criar(fonteJson.GetProperty("id").GetGuid());
+        var versaoFonte = VersaoFonte.Criar(fonteJson.GetProperty("version").GetInt64());
+        var matriculaId = MatriculaId.Criar(Guid.Parse("33333333-3333-4333-8333-333333339999"));
+
+        var atos = raiz.GetProperty("acts").EnumerateArray()
+            .Select(atoJson => CriarAtoDaFixture(atoJson, matriculaId, fonteId, versaoFonte))
+            .ToArray();
+
+        Assert.Equal(2, atos.Length);
+        Assert.Equal("R-3", atos[0].Identificador.ValorCanonico);
+        Assert.Equal(1, atos[0].OrdemNaFonte.Numero);
+        Assert.Equal([Pagina.Criar(1)], atos[0].Paginas);
+        Assert.Equal("AV-4", atos[1].Identificador.ValorCanonico);
+        Assert.Equal(2, atos[1].OrdemNaFonte.Numero);
+        Assert.Equal([Pagina.Criar(1), Pagina.Criar(2)], atos[1].Paginas);
+        var relacao = Assert.Single(atos[1].Relacoes);
+        Assert.Equal(atos[0].Id, relacao.AtoRelacionadoId);
+        Assert.Equal(TipoRelacaoAto.Referencia, relacao.Tipo);
+        Assert.Equal(DatasDocumentaisAto.Nenhuma, atos[0].Datas);
+        Assert.Empty(atos[0].Partes);
+    }
+
+    private static AtoRegistral CriarAtoDaFixture(
+        JsonElement atoJson,
+        MatriculaId matriculaId,
+        FonteDocumentalId fonteId,
+        VersaoFonte versaoFonte)
+    {
+        var identificadorOriginal = atoJson.GetProperty("identifier").GetString()!;
+        var partesIdentificador = identificadorOriginal.Split('-', 2);
+        var numero = long.Parse(partesIdentificador[1], System.Globalization.CultureInfo.InvariantCulture);
+        var identificador = partesIdentificador[0] switch
+        {
+            "R" => IdentificadorAtoRegistral.CriarRegistro(numero, identificadorOriginal),
+            "AV" => IdentificadorAtoRegistral.CriarAverbacao(numero, identificadorOriginal),
+            _ => IdentificadorAtoRegistral.CriarNaoIdentificado(identificadorOriginal),
+        };
+        var relacoes = atoJson.GetProperty("relations").EnumerateArray()
+            .Select(relacaoJson => RelacaoAtoRegistral.Criar(
+                AtoRegistralId.Criar(relacaoJson.GetProperty("targetActId").GetGuid()),
+                relacaoJson.GetProperty("type").GetString() == "reference"
+                    ? TipoRelacaoAto.Referencia
+                    : TipoRelacaoAto.Desconhecida));
+
+        return AtoRegistral.Criar(
+            AtoRegistralId.Criar(atoJson.GetProperty("id").GetGuid()),
+            matriculaId,
+            fonteId,
+            versaoFonte,
+            identificador,
+            OrdemAtoRegistral.Criar(atoJson.GetProperty("order").GetInt64()),
+            DatasDocumentaisAto.Nenhuma,
+            atoJson.GetProperty("pages").EnumerateArray().Select(pagina => Pagina.Criar(pagina.GetInt32())),
+            [],
+            relacoes);
     }
 }
