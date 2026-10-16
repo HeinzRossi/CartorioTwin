@@ -1,6 +1,6 @@
 # Spike S0-T06 — Contratos e golden fixtures sintéticas
 
-**Estado:** Draft técnico; S0-T06 pendente
+**Estado:** Baseline técnica candidata integrada; S0-T06 formalmente pendente
 
 **Data:** 15/10/2026
 
@@ -53,5 +53,6 @@ Exercitar um contrato versionado para fonte, página, evidência, ato candidato,
 - `dotnet build CartorioTwin.sln -c Release --no-restore`: aprovado com 0 avisos e 0 erros.
 - `dotnet test CartorioTwin.sln -c Release --no-build`: 17 testes aprovados em 4 projetos.
 - `git diff --check`: aprovado.
-- Draft PR [#6](https://github.com/HeinzRossi/CartorioTwin/pull/6): `build-and-test` aprovado em 1m17s e `secret-scan` aprovado em 5s.
-- Nenhum merge; S0-T06, S1-T02, Sprint 0, G0 e G1 permanecem pendentes.
+- PR [#6](https://github.com/HeinzRossi/CartorioTwin/pull/6): versão reconstruída sobre `main` aprovada por `build-and-test` em 1m31s e `secret-scan` em 9s, execução `38894767303`.
+- Squash `72a18d3`; CI subsequente da `main` aprovado em 1m24s/5s, execução `38894968090`.
+- A integração elimina a pendência técnica do draft, mas não substitui S0-T02, S0-T03, corpus autorizado ou revisão profissional. S0-T06, Sprint 0, G0 e G1 permanecem pendentes.

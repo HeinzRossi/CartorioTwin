@@ -1,10 +1,10 @@
 # Spike de compatibilidade S0-T06 ↔ S1-T02
 
-**Estado:** Draft técnico empilhado; não integrado; tasks pendentes
+**Estado:** Baseline técnica candidata integrada; tasks formais pendentes
 
 **Data:** 16/10/2026
 
-**Dependências:** draft PRs #5 e #6; S0-T02 e S0-T03 continuam bloqueadas pela S0-T01 real
+**Dependências:** baselines dos PRs #5 e #6 integradas; S0-T02 e S0-T03 continuam bloqueadas pela S0-T01 real
 
 ## Objetivo
 
@@ -22,14 +22,14 @@ Provar que a parte sobreposta dos contratos candidatos — fonte documental, ver
 
 - Não cria DTO público nem modela ato, revisão, cenário, OCR, persistência ou API.
 - Não estabiliza os contratos nem substitui S0-T02/S0-T03 ou validação profissional.
-- Não autoriza integração dos PRs #5, #6 ou deste spike.
+- A integração técnica não estabiliza os contratos nem autoriza uso operacional.
 
-## Validação prevista
+## Validação
 
 - Parser canônico aceita round-trip válido e rejeita caixa, prefixo, comprimento ou caractere inválido.
 - Cinco fixtures mapeiam metadados de fonte e todos os trechos para os tipos candidatos.
 - Validadores positivo e negativo dos contratos continuam aprovados.
-- Restore bloqueado, build Release, suíte completa e CI devem passar.
+- Restore bloqueado, build Release, suíte completa e CI passam na baseline integrada.
 - O Domain deve permanecer sem referências de projeto ou pacote.
 
 ## Evidências locais
@@ -41,6 +41,7 @@ Provar que a parte sobreposta dos contratos candidatos — fonte documental, ver
 - `dotnet test CartorioTwin.sln -c Release --no-build`: 44 testes aprovados em 4 projetos; 41 pertencem ao Domain.
 - `dotnet format ... whitespace --verify-no-changes`: aprovado para os arquivos C# do spike.
 - `dotnet list ... reference` e `dotnet list ... package`: Domain sem referências de projeto ou pacote.
-- Draft PR [#7](https://github.com/HeinzRossi/CartorioTwin/pull/7): primeira rodada de `build-and-test` aprovada em 1m5s e `secret-scan` aprovada em 9s, execução `38845023087`.
+- PR [#7](https://github.com/HeinzRossi/CartorioTwin/pull/7): versão reconstruída sobre `main` aprovada por `build-and-test` em 59s e `secret-scan` em 9s, execução `38895241570`.
+- Squash `42d4f7a`; CI subsequente da `main` aprovado em 1m15s/5s, execução `38895401796`.
 
 S0-T06, S1-T02, Sprint 0, G0 e G1 permanecem pendentes.

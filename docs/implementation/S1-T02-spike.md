@@ -1,6 +1,6 @@
 # Spike S1-T02 — Cadeia de evidência documental
 
-**Estado:** Draft técnico; não integrado; S1-T02 pendente
+**Estado:** Baseline técnica candidata integrada; S1-T02 formalmente pendente
 
 **Data:** 15/10/2026
 
@@ -36,7 +36,7 @@ Testar uma API de domínio mínima para vincular uma evidência a fonte, versão
 - Sem `OperacaoId`, `ExtracaoId`, dimensões, rotação ou `BoundingBox`.
 - Sem afirmar que coincidência literal comprova contexto, identidade ou efeito jurídico.
 - Sem nova referência de projeto ou pacote no Domain.
-- Os tipos públicos são candidatos do draft PR e podem mudar após S0-T06.
+- Os tipos públicos pertencem à baseline técnica candidata e podem mudar após S0-T06.
 
 ## Riscos
 
@@ -52,7 +52,7 @@ Testar uma API de domínio mínima para vincular uma evidência a fonte, versão
 - Trecho derivado exatamente por unidades UTF-16, inclusive com caracteres suplementares.
 - Referências da fonte preservadas na evidência.
 - Domain permanece puro.
-- Restore bloqueado, build Release, suíte completa e CI do draft PR aprovados.
+- Restore bloqueado, build Release, suíte completa e CI protegido aprovados.
 
 ## Evidências
 
@@ -63,6 +63,7 @@ Testar uma API de domínio mínima para vincular uma evidência a fonte, versão
 - `dotnet list ... package`: nenhum pacote no Domain.
 - `dotnet format whitespace ... --include <arquivos do spike> --verify-no-changes`: aprovado; baseline fora do spike não foi alterada.
 - `git diff --check`: aprovado.
-- CI e URL serão registradas no draft PR.
+- PR [#5](https://github.com/HeinzRossi/CartorioTwin/pull/5) integrado pelo squash `380ee0e`; CI subsequente da `main` aprovado em 1m14s/7s, execução `38894497243`.
+- Compatibilidade com os contratos externos integrada pelo PR [#7](https://github.com/HeinzRossi/CartorioTwin/pull/7), squash `42d4f7a`.
 
 Estas evidências validam somente o spike. Elas não concluem S1-T02, Sprint 1 ou G1.
