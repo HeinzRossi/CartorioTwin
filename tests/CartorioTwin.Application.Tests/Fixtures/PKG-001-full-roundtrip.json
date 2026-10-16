@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0-draft",
+  "fontes": [
+    {
+      "id": "10000000-0000-4000-8000-000000000001",
+      "versao": 1,
+      "hashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "nomeSanitizado": "matricula-sintetica.pdf",
+      "mimeType": "application/pdf",
+      "tamanhoBytes": 2048
+    }
+  ],
+  "paginas": [
+    {
+      "fonteId": "10000000-0000-4000-8000-000000000001",
+      "fonteVersao": 1,
+      "numero": 1,
+      "texto": "R-1 propriedade plena para Pessoa Alfa.",
+      "textoHashSha256": "sha256:80e6a8853a57f5a319f29b52aa06290ed01dad788dae0868b2f584f513121633"
+    },
+    {
+      "fonteId": "10000000-0000-4000-8000-000000000001",
+      "fonteVersao": 1,
+      "numero": 2,
+      "texto": "AV-2 usufruto para Pessoa Beta.",
+      "textoHashSha256": "sha256:bf3f790d8fedc5f13ace3a104492a92c496b749a9fd6379ec0d09f2bf608a5ce"
+    }
+  ],
+  "atos": [
+    {
+      "id": "20000000-0000-4000-8000-000000000001",
+      "matriculaId": "30000000-0000-4000-8000-000000000001",
+      "fonteId": "10000000-0000-4000-8000-000000000001",
+      "fonteVersao": 1,
+      "identificador": { "tipo": "registro", "numero": 1, "textoOriginal": "R-1" },
+      "ordemNaFonte": 1,
+      "datas": { "dataDoTitulo": "2026-01-01", "dataDoAto": "2026-01-02", "dataDaApresentacao": null },
+      "paginas": [1],
+      "partes": [
+        { "rotuloDocumental": "adquirente", "pessoaId": "40000000-0000-4000-8000-000000000001" }
+      ],
+      "relacoes": []
+    },
+    {
+      "id": "20000000-0000-4000-8000-000000000002",
+      "matriculaId": "30000000-0000-4000-8000-000000000001",
+      "fonteId": "10000000-0000-4000-8000-000000000001",
+      "fonteVersao": 1,
+      "identificador": { "tipo": "averbacao", "numero": 2, "textoOriginal": "AV-2" },
+      "ordemNaFonte": 2,
+      "datas": { "dataDoTitulo": null, "dataDoAto": "2026-02-02", "dataDaApresentacao": "2026-02-01" },
+      "paginas": [2],
+      "partes": [
+        { "rotuloDocumental": "usufrutuário", "pessoaId": null }
+      ],
+      "relacoes": [
+        { "atoRelacionadoId": "20000000-0000-4000-8000-000000000001", "tipo": "referencia" }
+      ]
+    }
+  ],
+  "direitos": [
+    {
+      "id": "50000000-0000-4000-8000-000000000001",
+      "atoOrigemId": "20000000-0000-4000-8000-000000000001",
+      "tipo": "propriedade_plena",
+      "extensao": { "tipo": "fracao_do_total", "fracaoDoTotal": { "numerador": 1, "denominador": 2 } },
+      "conhecimentoEfeito": "nao_avaliado",
+      "inicioDocumentado": "2026-01-02",
+      "fimDocumentado": null,
+      "titulares": ["40000000-0000-4000-8000-000000000001"],
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 1,
+          "textoHashSha256": "sha256:80e6a8853a57f5a319f29b52aa06290ed01dad788dae0868b2f584f513121633",
+          "inicioUtf16": 4,
+          "fimUtf16": 21,
+          "trecho": "propriedade plena"
+        }
+      ]
+    }
+  ],
+  "fatos": [
+    {
+      "id": "60000000-0000-4000-8000-000000000001",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000001",
+      "caminhoCampo": "titular.nome",
+      "valorSugerido": { "tipo": "texto", "texto": "Pessoa Alfa", "inteiro": null, "booleano": null, "fracao": null, "identidade": null },
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 1,
+          "textoHashSha256": "sha256:80e6a8853a57f5a319f29b52aa06290ed01dad788dae0868b2f584f513121633",
+          "inicioUtf16": 27,
+          "fimUtf16": 38,
+          "trecho": "Pessoa Alfa"
+        }
+      ],
+      "estado": "confirmado",
+      "situacaoEvidencia": "localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000001"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000002",
+      "versao": 2,
+      "fatoAnteriorId": "60000000-0000-4000-8000-000000000001",
+      "atoOrigemId": "20000000-0000-4000-8000-000000000001",
+      "caminhoCampo": "titular.nome",
+      "valorSugerido": { "tipo": "texto", "texto": "Pessoa Alfa OCR", "inteiro": null, "booleano": null, "fracao": null, "identidade": null },
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 1,
+          "textoHashSha256": "sha256:80e6a8853a57f5a319f29b52aa06290ed01dad788dae0868b2f584f513121633",
+          "inicioUtf16": 27,
+          "fimUtf16": 38,
+          "trecho": "Pessoa Alfa"
+        }
+      ],
+      "estado": "confirmado",
+      "situacaoEvidencia": "localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000002"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000003",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000001",
+      "caminhoCampo": "ato.ordem",
+      "valorSugerido": { "tipo": "inteiro", "texto": null, "inteiro": 1, "booleano": null, "fracao": null, "identidade": null },
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 1,
+          "textoHashSha256": "sha256:80e6a8853a57f5a319f29b52aa06290ed01dad788dae0868b2f584f513121633",
+          "inicioUtf16": 0,
+          "fimUtf16": 3,
+          "trecho": "R-1"
+        }
+      ],
+      "estado": "contestado",
+      "situacaoEvidencia": "localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000003"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000004",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000002",
+      "caminhoCampo": "ato.suportado",
+      "valorSugerido": { "tipo": "booleano", "texto": null, "inteiro": null, "booleano": true, "fracao": null, "identidade": null },
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 2,
+          "textoHashSha256": "sha256:bf3f790d8fedc5f13ace3a104492a92c496b749a9fd6379ec0d09f2bf608a5ce",
+          "inicioUtf16": 0,
+          "fimUtf16": 4,
+          "trecho": "AV-2"
+        }
+      ],
+      "estado": "nao_suportado",
+      "situacaoEvidencia": "localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000004"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000005",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000001",
+      "caminhoCampo": "direito.fracao",
+      "valorSugerido": null,
+      "evidencias": [],
+      "estado": "confirmado",
+      "situacaoEvidencia": "declarada_sem_evidencia",
+      "revisaoId": "70000000-0000-4000-8000-000000000005"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000006",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000002",
+      "caminhoCampo": "titular.id",
+      "valorSugerido": { "tipo": "identidade", "texto": null, "inteiro": null, "booleano": null, "fracao": null, "identidade": "40000000-0000-4000-8000-000000000002" },
+      "evidencias": [
+        {
+          "fonteId": "10000000-0000-4000-8000-000000000001",
+          "fonteVersao": 1,
+          "fonteHashSha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "pagina": 2,
+          "textoHashSha256": "sha256:bf3f790d8fedc5f13ace3a104492a92c496b749a9fd6379ec0d09f2bf608a5ce",
+          "inicioUtf16": 19,
+          "fimUtf16": 30,
+          "trecho": "Pessoa Beta"
+        }
+      ],
+      "estado": "confirmado",
+      "situacaoEvidencia": "localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000006"
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000007",
+      "versao": 1,
+      "fatoAnteriorId": null,
+      "atoOrigemId": "20000000-0000-4000-8000-000000000002",
+      "caminhoCampo": "efeito.desconhecido",
+      "valorSugerido": null,
+      "evidencias": [],
+      "estado": "contestado",
+      "situacaoEvidencia": "nao_localizada",
+      "revisaoId": "70000000-0000-4000-8000-000000000007"
+    }
+  ],
+  "revisoes": [
+    {
+      "id": "70000000-0000-4000-8000-000000000001",
+      "fatoId": "60000000-0000-4000-8000-000000000001",
+      "versaoFato": 1,
+      "decisao": "confirmar",
+      "valorFinal": { "tipo": "texto", "texto": "Pessoa Alfa", "inteiro": null, "booleano": null, "fracao": null, "identidade": null },
+      "justificativa": null,
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:00:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000002",
+      "fatoId": "60000000-0000-4000-8000-000000000002",
+      "versaoFato": 2,
+      "decisao": "corrigir",
+      "valorFinal": { "tipo": "texto", "texto": "Pessoa Alfa", "inteiro": null, "booleano": null, "fracao": null, "identidade": null },
+      "justificativa": "Correção humana do OCR",
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:01:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000003",
+      "fatoId": "60000000-0000-4000-8000-000000000003",
+      "versaoFato": 1,
+      "decisao": "contestar",
+      "valorFinal": null,
+      "justificativa": "Ordem requer conferência",
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:02:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000004",
+      "fatoId": "60000000-0000-4000-8000-000000000004",
+      "versaoFato": 1,
+      "decisao": "marcar_nao_suportado",
+      "valorFinal": null,
+      "justificativa": "Sem suporte técnico",
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:03:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000005",
+      "fatoId": "60000000-0000-4000-8000-000000000005",
+      "versaoFato": 1,
+      "decisao": "declarar_sem_evidencia",
+      "valorFinal": { "tipo": "fracao", "texto": null, "inteiro": null, "booleano": null, "fracao": { "numerador": 1, "denominador": 2 }, "identidade": null },
+      "justificativa": "Declaração manual isolada",
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:04:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000006",
+      "fatoId": "60000000-0000-4000-8000-000000000006",
+      "versaoFato": 1,
+      "decisao": "confirmar",
+      "valorFinal": { "tipo": "identidade", "texto": null, "inteiro": null, "booleano": null, "fracao": null, "identidade": "40000000-0000-4000-8000-000000000002" },
+      "justificativa": null,
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:05:00.0000000+00:00"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000007",
+      "fatoId": "60000000-0000-4000-8000-000000000007",
+      "versaoFato": 1,
+      "decisao": "marcar_nao_localizado",
+      "valorFinal": null,
+      "justificativa": "Valor não localizado",
+      "usuarioId": "80000000-0000-4000-8000-000000000001",
+      "autorizacaoId": "90000000-0000-4000-8000-000000000001",
+      "emUtc": "2026-10-16T12:06:00.0000000+00:00"
+    }
+  ]
+}
