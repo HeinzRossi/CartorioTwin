@@ -1,6 +1,6 @@
 # Spike S1-T04 — Direitos documentados candidatos
 
-**Estado:** baseline técnica candidata preparada para integração; S1-T04 formalmente pendente
+**Estado:** baseline técnica candidata integrada; S1-T04 formalmente pendente
 
 **Data:** 16/10/2026
 
@@ -63,4 +63,8 @@ Titulares podem permanecer vazios quando não identificados. O agregado não cri
 
 A verificação de formatação da solução inteira continua apontando arquivos legados WPF/smoke fora desta alteração. Nenhum deles foi reescrito neste spike.
 
-Evidências de PR, squash e CI da `main` serão registradas após integração. S1-T04, Sprint 1 e G1 permanecem pendentes de validação externa.
+- PR [#10](https://github.com/HeinzRossi/CartorioTwin/pull/10): aprovado por `build-and-test` em 1m16s e `secret-scan` em 6s, execução `38899593607`.
+- Squash `a7de636` integrado exclusivamente pelo PR #10.
+- CI subsequente da `main`: `build-and-test` aprovado em 1m17s e `secret-scan` em 9s, execução `38899849269`.
+
+S1-T04, Sprint 1 e G1 permanecem pendentes de validação externa.
