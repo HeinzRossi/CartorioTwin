@@ -41,6 +41,6 @@ Provar que a parte sobreposta dos contratos candidatos — fonte documental, ver
 - `dotnet test CartorioTwin.sln -c Release --no-build`: 44 testes aprovados em 4 projetos; 41 pertencem ao Domain.
 - `dotnet format ... whitespace --verify-no-changes`: aprovado para os arquivos C# do spike.
 - `dotnet list ... reference` e `dotnet list ... package`: Domain sem referências de projeto ou pacote.
-- CI: aguardando publicação do draft PR empilhado.
+- Draft PR [#7](https://github.com/HeinzRossi/CartorioTwin/pull/7): primeira rodada de `build-and-test` aprovada em 1m5s e `secret-scan` aprovada em 9s, execução `38845023087`.
 
 S0-T06, S1-T02, Sprint 0, G0 e G1 permanecem pendentes.
