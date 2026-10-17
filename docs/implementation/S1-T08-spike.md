@@ -1,6 +1,6 @@
 # Spike S1-T08 — Identidade, autorização e isolamento operacional
 
-**Estado:** baseline técnica candidata implementada; integração e validações externas pendentes
+**Estado:** baseline técnica candidata integrada; validações externas pendentes
 
 **Data:** 16/10/2026
 
@@ -95,7 +95,7 @@ Administrador não recebe implicitamente `fatos.revisar`. Propriedade administra
 - O storage físico e suas ACLs não foram implementados.
 - `Confirmado` continua significando decisão humana registrada, não verdade ou efeito jurídico.
 
-## Evidências locais preliminares
+## Evidências locais
 
 - Restore completo com lock files atualizado: aprovado.
 - Build Release serial: aprovado com 0 avisos e 0 erros.
@@ -107,4 +107,13 @@ Administrador não recebe implicitamente `fatos.revisar`. Propriedade administra
 - Domain confirmado sem referência de projeto ou pacote.
 - `git diff --check`: aprovado.
 
-As URLs do PR, squash, CI e proteção serão registradas em PR documental pós-merge. S1-T08, Sprint 1 e G1 permanecem formalmente pendentes de S0-T05, validação externa e S1-T09.
+## Evidências de integração
+
+- PR técnico [#18](https://github.com/HeinzRossi/CartorioTwin/pull/18), integrado exclusivamente por squash em `ecf71c951b1dbee0d4bff905f1c42656ccd16fb0`.
+- CI do PR: execução [38991973894](https://github.com/HeinzRossi/CartorioTwin/actions/runs/38991973894), com `build-and-test`, `persistence-integration` e `secret-scan` aprovados antes do merge.
+- CI da `main`: execução [38992127516](https://github.com/HeinzRossi/CartorioTwin/actions/runs/38992127516), com os três jobs aprovados após o merge.
+- Migration acrescentada sem alterar a inicial: `20261017013159_S1T08IdentidadeAutorizacao`.
+- Proteção confirmada pela API: branch atualizada e PR obrigatórios; checks `build-and-test`, `persistence-integration` e `secret-scan`; zero aprovações; aprovação do último push desativada; administradores incluídos; histórico linear e conversas resolvidas; force push e exclusão bloqueados.
+- Auto-merge permanece desativado no repositório.
+
+S1-T08, Sprint 1 e G1 permanecem formalmente pendentes de S0-T05, validação externa e S1-T09.
