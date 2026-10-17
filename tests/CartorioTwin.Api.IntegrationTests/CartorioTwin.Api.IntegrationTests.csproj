@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
@@ -19,7 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CartorioTwin.Api\CartorioTwin.Api.csproj" />
+    <ProjectReference Include="..\..\src\CartorioTwin.Application\CartorioTwin.Application.csproj" />
     <ProjectReference Include="..\..\src\CartorioTwin.Contracts\CartorioTwin.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\CartorioTwin.Infrastructure\CartorioTwin.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

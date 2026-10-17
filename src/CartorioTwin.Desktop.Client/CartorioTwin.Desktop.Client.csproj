@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Duende.IdentityModel.OidcClient" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CartorioTwin.Contracts\CartorioTwin.Contracts.csproj" />
   </ItemGroup>
 

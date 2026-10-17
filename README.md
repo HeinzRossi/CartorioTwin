@@ -2,7 +2,7 @@
 
 Fundação técnica do Cartório Twin, plataforma Windows para análise documental assistida e simulação condicional de operações imobiliárias.
 
-> Estado atual: fundação S0-T04 e núcleo de domínio S1-T01 concluídos; baseline técnica candidata de contratos, fixtures, evidências, atos, direitos documentados, revisão humana, serialização versionada e catálogo físico SQL Server integrada. S0-T01 continua sem entrevistas reais e S0-T06/S1-T02…S1-T07 dependem de validação externa; autorização efetiva pertence à S1-T08. Nenhum gate G0–G9, sprint, MVP, homologação jurídica ou implantação foi concluído.
+> Estado atual: fundação S0-T04 e núcleo de domínio S1-T01 concluídos; baselines técnicas candidatas de contratos, fixtures, evidências, atos, direitos documentados, revisão humana, serialização versionada, catálogo físico SQL Server e identidade/autorização estão implementadas. S0-T01 continua sem entrevistas reais e S0-T06/S1-T02…S1-T08 dependem de decisões e validações externas. Nenhum gate G0–G9, sprint, MVP, homologação jurídica ou implantação foi concluído.
 
 ## Requisitos
 
@@ -34,5 +34,7 @@ dotnet test CartorioTwin.sln -c Release --no-build
 ```
 
 Os testes de `CartorioTwin.Infrastructure.Tests` iniciam um SQL Server 2022 descartável por Testcontainers. Defina `CARTORIOTWIN_SKIP_SQLSERVER_TESTS=true` somente quando a mesma suíte for executada por um job Docker separado, como ocorre no CI Windows/Linux.
+
+A API opera fechada e exige configuração OIDC/JWT válida; perfis efetivos e vínculo com a serventia são resolvidos no banco. O cliente desktop está preparado para Authorization Code + PKCE, sem segredo, mantendo access token somente em memória e protegendo refresh token com DPAPI do usuário Windows. IdP, certificados, storage físico, ACL e retenção produtivos continuam deliberadamente não definidos.
 
 Leia [`docs/CartorioTwin_Documentacao_v1/AGENTS.md`](docs/CartorioTwin_Documentacao_v1/AGENTS.md) antes de implementar qualquer task.

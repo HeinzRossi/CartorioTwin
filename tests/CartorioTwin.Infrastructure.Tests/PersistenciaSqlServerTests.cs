@@ -32,6 +32,7 @@ public sealed class PersistenciaSqlServerTests(SqlServerContainerFixture fixture
             Assert.Equal(1, await context.Set<CampoCandidatoEvidenciaRegistro>().CountAsync());
             Assert.Equal(1, await context.Set<RevisaoCampoRegistro>().CountAsync());
             Assert.Equal(1, await context.Set<TentativaJobRegistro>().CountAsync());
+            Assert.Equal(1, await context.Set<AutorizacaoRevisaoRegistro>().CountAsync());
         }
 
         await ExcluirBanco(database);
@@ -143,7 +144,106 @@ public sealed class PersistenciaSqlServerTests(SqlServerContainerFixture fixture
         var script = migrator.GenerateScript(options: MigrationsSqlGenerationOptions.Idempotent);
 
         Assert.Contains("S1T07CatalogoInicial", script, StringComparison.Ordinal);
+        Assert.Contains("S1T08IdentidadeAutorizacao", script, StringComparison.Ordinal);
         Assert.Contains("IF NOT EXISTS", script, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [SqlServerFact]
+    public async Task IdentidadeExterna_EUnicaPorEmissorESubject()
+    {
+        var database = NomeBanco();
+        await using (var context = CriarContexto(database))
+        {
+            await context.Database.MigrateAsync();
+            var serventia = Guid.NewGuid();
+            context.AddRange(
+                Serventia(serventia, "SP"),
+                Usuario(Guid.NewGuid(), "https://idp.test", "mesmo-sub"),
+                Usuario(Guid.NewGuid(), "https://idp.test", "mesmo-sub"));
+
+            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+        }
+
+        await ExcluirBanco(database);
+    }
+
+    [SqlServerFact]
+    public async Task UsuarioServentia_RejeitaPerfilDesconhecido()
+    {
+        var database = NomeBanco();
+        await using (var context = CriarContexto(database))
+        {
+            await context.Database.MigrateAsync();
+            var serventia = Guid.NewGuid();
+            var usuario = Guid.NewGuid();
+            context.AddRange(
+                Serventia(serventia, "SP"),
+                Usuario(usuario, "https://idp.test", "usuario-perfil"),
+                new UsuarioServentiaRegistro
+                {
+                    UsuarioId = usuario,
+                    ServentiaId = serventia,
+                    Perfil = "SuperAdministrador",
+                    Ativo = true,
+                });
+
+            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+        }
+
+        await ExcluirBanco(database);
+    }
+
+    [SqlServerFact]
+    public async Task AutorizacaoRevisao_RejeitaReferenciaCruzadaEntreServentias()
+    {
+        var database = NomeBanco();
+        await using (var context = CriarContexto(database))
+        {
+            await context.Database.MigrateAsync();
+            var serventiaA = Guid.NewGuid();
+            var serventiaB = Guid.NewGuid();
+            var operacaoA = Guid.NewGuid();
+            var usuario = Guid.NewGuid();
+            context.AddRange(
+                Serventia(serventiaA, "SP"),
+                Serventia(serventiaB, "RJ"),
+                Operacao(serventiaA, operacaoA),
+                Usuario(usuario, "https://idp.test", "usuario-1"),
+                Autorizacao(serventiaB, operacaoA, usuario));
+
+            await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
+        }
+
+        await ExcluirBanco(database);
+    }
+
+    [SqlServerFact]
+    public async Task AutorizacaoRevisao_EAppendOnlyNoDbContext()
+    {
+        var database = NomeBanco();
+        await using (var context = CriarContexto(database))
+        {
+            await context.Database.MigrateAsync();
+            var serventia = Guid.NewGuid();
+            var operacao = Guid.NewGuid();
+            var usuario = Guid.NewGuid();
+            context.AddRange(
+                Serventia(serventia, "SP"),
+                Operacao(serventia, operacao),
+                Usuario(usuario, "https://idp.test", "usuario-append-only"),
+                new UsuarioServentiaRegistro { UsuarioId = usuario, ServentiaId = serventia, Perfil = "Conferente", Ativo = true },
+                Autorizacao(serventia, operacao, usuario));
+            await context.SaveChangesAsync();
+        }
+
+        await using (var context = CriarContexto(database))
+        {
+            var autorizacao = await context.Set<AutorizacaoRevisaoRegistro>().SingleAsync();
+            autorizacao.Capacidade = "alterada";
+            await Assert.ThrowsAsync<InvalidOperationException>(() => context.SaveChangesAsync());
+        }
+
+        await ExcluirBanco(database);
     }
 
     private CartorioTwinDbContext CriarContexto(string database)
@@ -187,6 +287,30 @@ public sealed class PersistenciaSqlServerTests(SqlServerContainerFixture fixture
         AtualizadaEmUtc = DateTimeOffset.UtcNow,
     };
 
+    private static UsuarioRegistro Usuario(Guid id, string emissor, string subject) => new()
+    {
+        Id = id,
+        EmissorIdentidade = emissor,
+        IdentidadeExterna = subject,
+        NomeExibicao = "Usuário sintético",
+        Ativo = true,
+    };
+
+    private static AutorizacaoRevisaoRegistro Autorizacao(Guid serventia, Guid operacao, Guid usuario) => new()
+    {
+        Id = Guid.NewGuid(),
+        ServentiaId = serventia,
+        OperacaoId = operacao,
+        TipoRecurso = "FatoDocumental",
+        RecursoId = Guid.NewGuid(),
+        VersaoAlvo = 1,
+        UsuarioId = usuario,
+        PerfilEfetivo = "Conferente",
+        Capacidade = "fatos.revisar",
+        EmitidaEmUtc = DateTimeOffset.UtcNow,
+        CorrelationId = Guid.NewGuid(),
+    };
+
     private static FonteDocumentalRegistro Fonte(Guid serventia, Guid operacao, Guid id) => new()
     {
         Id = id,
@@ -226,10 +350,14 @@ public sealed class PersistenciaSqlServerTests(SqlServerContainerFixture fixture
         var campo = Guid.NewGuid();
         var revisao = Guid.NewGuid();
         var job = Guid.NewGuid();
+        var usuario = Guid.NewGuid();
 
         context.AddRange(
             Serventia(serventia, "SP"),
             Operacao(serventia, operacao),
+            Usuario(usuario, "https://idp.test", $"usuario-{usuario:N}"),
+            new UsuarioServentiaRegistro { UsuarioId = usuario, ServentiaId = serventia, Perfil = "Conferente", Ativo = true },
+            Autorizacao(serventia, operacao, usuario),
             Fonte(serventia, operacao, fonte),
             new PaginaFonteRegistro { Id = pagina, ServentiaId = serventia, OperacaoId = operacao, FonteId = fonte, Numero = 1 },
             new ExecucaoExtracaoRegistro { Id = extracao, ServentiaId = serventia, OperacaoId = operacao, FonteId = fonte, RevisaoConfiguracao = 1, Estado = "concluida", CriadaEmUtc = DateTimeOffset.UtcNow },

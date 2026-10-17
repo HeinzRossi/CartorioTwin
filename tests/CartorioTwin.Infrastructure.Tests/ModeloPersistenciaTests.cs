@@ -11,10 +11,11 @@ public sealed class ModeloPersistenciaTests
         using var context = CriarContextoModelo();
         var model = context.Model;
 
-        Assert.Equal(46, model.GetEntityTypes().Count());
+        Assert.Equal(47, model.GetEntityTypes().Count());
         Assert.Contains(model.GetEntityTypes(), x => x.GetTableName() == "EvidenciaFonte");
         Assert.Contains(model.GetEntityTypes(), x => x.GetTableName() == "CampoCandidatoEvidencia");
         Assert.Contains(model.GetEntityTypes(), x => x.GetTableName() == "JobProcessamento");
+        Assert.Contains(model.GetEntityTypes(), x => x.GetTableName() == "AutorizacaoRevisao");
 
         var pagina = model.FindEntityType(typeof(PaginaFonteRegistro));
         Assert.NotNull(pagina);

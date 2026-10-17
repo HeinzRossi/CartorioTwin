@@ -234,6 +234,71 @@ namespace CartorioTwin.Infrastructure.Persistencia.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CartorioTwin.Infrastructure.Persistencia.AutorizacaoRevisaoRegistro", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Capacidade")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("EmitidaEmUtc")
+                        .HasColumnType("datetimeoffset(7)");
+
+                    b.Property<Guid>("OperacaoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PerfilEfetivo")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("RecursoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ServentiaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TipoRecurso")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("VersaoAlvo")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("ServentiaId", "Id");
+
+                    b.HasAlternateKey("ServentiaId", "OperacaoId", "Id");
+
+                    b.HasIndex("ServentiaId");
+
+                    b.HasIndex("ServentiaId", "OperacaoId");
+
+                    b.HasIndex("UsuarioId", "ServentiaId");
+
+                    b.ToTable("AutorizacaoRevisao", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_AutorizacaoRevisao_Id_NaoVazio", "[Id] <> '00000000-0000-0000-0000-000000000000'");
+
+                            t.HasCheckConstraint("CK_AutorizacaoRevisao_OperacaoId_NaoVazio", "[OperacaoId] <> '00000000-0000-0000-0000-000000000000'");
+
+                            t.HasCheckConstraint("CK_AutorizacaoRevisao_ServentiaId_NaoVazio", "[ServentiaId] <> '00000000-0000-0000-0000-000000000000'");
+
+                            t.HasCheckConstraint("CK_AutorizacaoRevisao_Valores", "[VersaoAlvo] > 0 AND DATEPART(TZOFFSET, [EmitidaEmUtc]) = 0 AND [UsuarioId] <> '00000000-0000-0000-0000-000000000000' AND [RecursoId] <> '00000000-0000-0000-0000-000000000000' AND [CorrelationId] <> '00000000-0000-0000-0000-000000000000'");
+                        });
+                });
+
             modelBuilder.Entity("CartorioTwin.Infrastructure.Persistencia.CampoCandidatoEvidenciaRegistro", b =>
                 {
                     b.Property<Guid>("ServentiaId")
@@ -2160,9 +2225,13 @@ namespace CartorioTwin.Infrastructure.Persistencia.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<string>("EmissorIdentidade")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
                     b.Property<string>("IdentidadeExterna")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("NomeExibicao")
                         .IsRequired()
@@ -2171,9 +2240,15 @@ namespace CartorioTwin.Infrastructure.Persistencia.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmissorIdentidade", "IdentidadeExterna")
+                        .IsUnique()
+                        .HasFilter("[EmissorIdentidade] IS NOT NULL AND [IdentidadeExterna] IS NOT NULL");
+
                     b.ToTable("Usuario", null, t =>
                         {
                             t.HasCheckConstraint("CK_Usuario_Id_NaoVazio", "[Id] <> '00000000-0000-0000-0000-000000000000'");
+
+                            t.HasCheckConstraint("CK_Usuario_IdentidadeExterna", "([EmissorIdentidade] IS NULL AND [IdentidadeExterna] IS NULL) OR ([EmissorIdentidade] IS NOT NULL AND [EmissorIdentidade] <> '' AND [IdentidadeExterna] IS NOT NULL AND [IdentidadeExterna] <> '')");
                         });
                 });
 
@@ -2199,6 +2274,8 @@ namespace CartorioTwin.Infrastructure.Persistencia.Migrations
 
                     b.ToTable("UsuarioServentia", null, t =>
                         {
+                            t.HasCheckConstraint("CK_UsuarioServentia_Perfil", "[Perfil] IN ('Operador', 'Conferente', 'ResponsavelJuridico', 'Administrador', 'Auditor')");
+
                             t.HasCheckConstraint("CK_UsuarioServentia_ServentiaId_NaoVazio", "[ServentiaId] <> '00000000-0000-0000-0000-000000000000'");
                         });
                 });
@@ -2383,6 +2460,28 @@ namespace CartorioTwin.Infrastructure.Persistencia.Migrations
                         .WithMany()
                         .HasForeignKey("ServentiaId", "OperacaoId", "InterpretacaoId")
                         .HasPrincipalKey("ServentiaId", "OperacaoId", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CartorioTwin.Infrastructure.Persistencia.AutorizacaoRevisaoRegistro", b =>
+                {
+                    b.HasOne("CartorioTwin.Infrastructure.Persistencia.ServentiaRegistro", null)
+                        .WithMany()
+                        .HasForeignKey("ServentiaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CartorioTwin.Infrastructure.Persistencia.OperacaoRegistro", null)
+                        .WithMany()
+                        .HasForeignKey("ServentiaId", "OperacaoId")
+                        .HasPrincipalKey("ServentiaId", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CartorioTwin.Infrastructure.Persistencia.UsuarioServentiaRegistro", null)
+                        .WithMany()
+                        .HasForeignKey("UsuarioId", "ServentiaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

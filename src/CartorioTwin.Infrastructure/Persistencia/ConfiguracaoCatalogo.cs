@@ -8,6 +8,7 @@ internal static class ConfiguracaoCatalogo
     private static readonly Type[] TiposCatalogo =
     [
         typeof(ServentiaRegistro), typeof(UsuarioRegistro), typeof(UsuarioServentiaRegistro),
+        typeof(AutorizacaoRevisaoRegistro),
         typeof(OperacaoRegistro), typeof(MatriculaReferenciaRegistro), typeof(FonteDocumentalRegistro),
         typeof(PaginaFonteRegistro), typeof(ExecucaoExtracaoRegistro), typeof(PaginaExtraidaRegistro),
         typeof(EvidenciaFonteRegistro), typeof(SegmentoAtoRegistro), typeof(SegmentoAtoEvidenciaRegistro),
@@ -80,6 +81,10 @@ internal static class ConfiguracaoCatalogo
             .HasForeignKey(x => x.ServentiaId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<UsuarioServentiaRegistro>().HasOne<UsuarioRegistro>().WithMany()
             .HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<AutorizacaoRevisaoRegistro>().HasOne<UsuarioServentiaRegistro>().WithMany()
+            .HasForeignKey(x => new { x.UsuarioId, x.ServentiaId })
+            .HasPrincipalKey(x => new { x.UsuarioId, x.ServentiaId })
+            .OnDelete(DeleteBehavior.Restrict);
 
         foreach (var type in TiposCatalogo.Where(t => typeof(IRegistroTenant).IsAssignableFrom(t)))
         {
@@ -141,6 +146,10 @@ internal static class ConfiguracaoCatalogo
 
     private static void ConfigurarRestricoes(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<UsuarioRegistro>()
+            .HasIndex(x => new { x.EmissorIdentidade, x.IdentidadeExterna })
+            .IsUnique()
+            .HasFilter("[EmissorIdentidade] IS NOT NULL AND [IdentidadeExterna] IS NOT NULL");
         modelBuilder.Entity<MatriculaReferenciaRegistro>().HasIndex(x => new { x.ServentiaId, x.OperacaoId }).IsUnique();
         modelBuilder.Entity<FonteDocumentalRegistro>().HasIndex(x => new { x.ServentiaId, x.OperacaoId, x.Sha256, x.Versao }).IsUnique();
         modelBuilder.Entity<PaginaFonteRegistro>().HasIndex(x => new { x.ServentiaId, x.OperacaoId, x.FonteId, x.Numero }).IsUnique();
@@ -154,6 +163,23 @@ internal static class ConfiguracaoCatalogo
         modelBuilder.Entity<EventoAuditoriaRegistro>().HasIndex(x => new { x.ServentiaId, x.EmUtc });
 
         Check<OperacaoRegistro>(modelBuilder, "CK_Operacao_RevisaoAtual", "[RevisaoAtual] >= 0");
+        Check<UsuarioServentiaRegistro>(
+            modelBuilder,
+            "CK_UsuarioServentia_Perfil",
+            "[Perfil] IN ('Operador', 'Conferente', 'ResponsavelJuridico', 'Administrador', 'Auditor')");
+        Check<UsuarioRegistro>(
+            modelBuilder,
+            "CK_Usuario_IdentidadeExterna",
+            "([EmissorIdentidade] IS NULL AND [IdentidadeExterna] IS NULL) OR " +
+            "([EmissorIdentidade] IS NOT NULL AND [EmissorIdentidade] <> '' AND " +
+            "[IdentidadeExterna] IS NOT NULL AND [IdentidadeExterna] <> '')");
+        Check<AutorizacaoRevisaoRegistro>(
+            modelBuilder,
+            "CK_AutorizacaoRevisao_Valores",
+            "[VersaoAlvo] > 0 AND DATEPART(TZOFFSET, [EmitidaEmUtc]) = 0 AND " +
+            "[UsuarioId] <> '00000000-0000-0000-0000-000000000000' AND " +
+            "[RecursoId] <> '00000000-0000-0000-0000-000000000000' AND " +
+            "[CorrelationId] <> '00000000-0000-0000-0000-000000000000'");
         Check<FonteDocumentalRegistro>(modelBuilder, "CK_FonteDocumental_Valores", "[Versao] > 0 AND [Bytes] > 0");
         Check<PaginaFonteRegistro>(modelBuilder, "CK_PaginaFonte_NumeroRotacao", "[Numero] > 0 AND [Rotacao] IN (0, 90, 180, 270)");
         Check<ExecucaoExtracaoRegistro>(modelBuilder, "CK_ExecucaoExtracao_Revisao", "[RevisaoConfiguracao] > 0");
@@ -241,7 +267,7 @@ internal static class ConfiguracaoCatalogo
         "Trecho" or "Mensagem" or "Justificativa" or "Motivo" => 4000,
         var n when n.EndsWith("StorageKey", StringComparison.Ordinal) => 1024,
         var n when n.Contains("Hash", StringComparison.Ordinal) || n == "Sha256" => 71,
-        "Nome" or "NomeExibicao" or "Emissor" or "RotuloLocalizado" => 300,
+        "Nome" or "NomeExibicao" or "Emissor" or "EmissorIdentidade" or "IdentidadeExterna" or "RotuloLocalizado" => 300,
         "ChaveIdempotencia" => 200,
         _ => 150,
     };
