@@ -20,6 +20,7 @@ jobs:
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
+      CARTORIOTWIN_SKIP_SQLSERVER_TESTS: true
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -45,6 +46,32 @@ jobs:
 
       - name: Test
         run: dotnet test CartorioTwin.sln -c Release --no-build --logger trx --results-directory TestResults
+
+  persistence-integration:
+    name: persistence-integration
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore persistence tests
+        run: dotnet restore tests/CartorioTwin.Infrastructure.Tests/CartorioTwin.Infrastructure.Tests.csproj --locked-mode
+
+      - name: Build persistence tests
+        run: dotnet build tests/CartorioTwin.Infrastructure.Tests/CartorioTwin.Infrastructure.Tests.csproj -c Release --no-restore
+
+      - name: Test SQL Server persistence
+        run: dotnet test tests/CartorioTwin.Infrastructure.Tests/CartorioTwin.Infrastructure.Tests.csproj -c Release --no-build --logger trx --results-directory TestResults
 
   secret-scan:
     name: secret-scan
