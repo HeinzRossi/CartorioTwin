@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartorioTwin.Api.Integratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartorioTwin.Desktop.ViewModelTests", "tests\CartorioTwin.Desktop.ViewModelTests\CartorioTwin.Desktop.ViewModelTests.csproj", "{1F368021-EFB5-48C1-83C7-8573F592972E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartorioTwin.Infrastructure.Tests", "tests\CartorioTwin.Infrastructure.Tests\CartorioTwin.Infrastructure.Tests.csproj", "{66C45422-78AE-4160-A3B5-7B6BC8485BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +187,18 @@ Global
 		{1F368021-EFB5-48C1-83C7-8573F592972E}.Release|x64.Build.0 = Release|Any CPU
 		{1F368021-EFB5-48C1-83C7-8573F592972E}.Release|x86.ActiveCfg = Release|Any CPU
 		{1F368021-EFB5-48C1-83C7-8573F592972E}.Release|x86.Build.0 = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|x64.Build.0 = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Debug|x86.Build.0 = Debug|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|x64.ActiveCfg = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|x64.Build.0 = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|x86.ActiveCfg = Release|Any CPU
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -202,5 +216,6 @@ Global
 		{7E3422D8-14D2-4183-AFCF-750F8DD7DCEC} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{17D6E670-8907-45D5-A45F-05E68AD6E197} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{1F368021-EFB5-48C1-83C7-8573F592972E} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{66C45422-78AE-4160-A3B5-7B6BC8485BC9} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
