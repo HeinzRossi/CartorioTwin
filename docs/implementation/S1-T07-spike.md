@@ -1,6 +1,6 @@
 # Spike S1-T07 — Persistência física SQL Server
 
-**Estado:** baseline técnica candidata em integração; validação externa pendente
+**Estado:** baseline técnica candidata integrada; validação externa pendente
 
 **Data:** 16/10/2026
 
@@ -71,6 +71,13 @@ Materializar o catálogo lógico da seção 10 em SQL Server/EF Core, preservand
 - Formatação dos projetos alterados em modo `--verify-no-changes`: aprovada.
 - Domain confirmado sem referência de projeto ou pacote.
 - `git diff --check`: aprovado.
-- Evidências de PR, squash e CI serão registradas após integração.
+
+## Evidências de integração
+
+- PR técnico [#16](https://github.com/HeinzRossi/CartorioTwin/pull/16), integrado exclusivamente por squash em `e49bff7b103271849764f438381e838ef5dda7c5`.
+- CI do PR: execução [38989179124](https://github.com/HeinzRossi/CartorioTwin/actions/runs/38989179124), com `build-and-test`, `persistence-integration` e `secret-scan` aprovados antes do merge.
+- CI da `main`: execução [38989362676](https://github.com/HeinzRossi/CartorioTwin/actions/runs/38989362676), com os três jobs aprovados após o merge.
+- Proteção confirmada pela API: branch atualizada e PR obrigatórios; checks `build-and-test`, `persistence-integration` e `secret-scan`; zero aprovações; aprovação do último push desativada; administradores incluídos; histórico linear e conversas resolvidas; force push e exclusão bloqueados.
+- Auto-merge permanece desativado no repositório.
 
 S1-T07, Sprint 1 e G1 permanecem formalmente pendentes das validações externas e de S1-T08/S1-T09.
